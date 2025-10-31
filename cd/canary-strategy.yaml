@@ -23,7 +23,7 @@ pipeline:
             steps:
               - stepGroup:
                   name: Canary Deployment
-                  identifier: canaryDepoyment
+                  identifier: canaryDeploymentGroup
                   steps:
                     - step:
                         name: Canary Deployment
@@ -44,11 +44,11 @@ pipeline:
                         spec: {}
               - stepGroup:
                   name: Primary Deployment
-                  identifier: primaryDeployment
+                  identifier: primaryDeploymentGroup
                   steps:
                     - step:
                         name: Rolling Deployment
-                        identifier: primaryDeployment
+                        identifier: rollingDeployment
                         type: K8sRollingDeploy
                         timeout: 10m
                         spec:
@@ -56,13 +56,13 @@ pipeline:
             rollbackSteps:
               - step:
                   name: Canary Delete
-                  identifier: primaryDeployment
+                  identifier: canaryDeleteRollback
                   type: K8sCanaryDelete
                   timeout: 10m
                   spec: {}
               - step:
                   name: Rolling Rollback
-                  identifier: primaryDeployment
+                  identifier: rollingRollback
                   type: K8sRollingRollback
                   timeout: 10m
                   spec: {}

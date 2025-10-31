@@ -1,6 +1,8 @@
 service:
     name: test-node-cd-service
     identifier: test-node-cd-service
+    orgIdentifier: default
+    projectIdentifier: Test-Project-DevRel
     serviceDefinition:
         type: Kubernetes
         spec:

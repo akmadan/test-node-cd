@@ -3,7 +3,7 @@ connector:
   identifier: harnessgitconnector
   description: ""
   orgIdentifier: default
-  projectIdentifier: default_project
+  projectIdentifier: Test-Project-DevRel
   type: Github
   spec:
     url: https://github.com/akmadan/test-node-cd

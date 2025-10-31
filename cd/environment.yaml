@@ -5,6 +5,6 @@ environment:
   tags: {}
   type: Production
   orgIdentifier: default
-  projectIdentifier: default_project
+  projectIdentifier: Test-Project-DevRel
   variables: []
  

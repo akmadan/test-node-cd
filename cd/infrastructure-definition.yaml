@@ -4,12 +4,12 @@ infrastructureDefinition:
   description: ""
   tags: {}
   orgIdentifier: default
-  projectIdentifier: default_project
+  projectIdentifier: Test-Project-DevRel
   environmentRef: test-node-cd-environment
   deploymentType: Kubernetes
   type: KubernetesDirect
   spec:
-    connectorRef: test-node-cd-kubernetes-connector
+    connectorRef: harnessk8sconnector
     namespace: default
     releaseName: release-<+INFRA_KEY>
   allowSimultaneousDeployments: false
