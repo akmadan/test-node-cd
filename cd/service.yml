@@ -15,8 +15,8 @@ service:
                             connectorRef: harnessgitconnector
                             gitFetchType: Branch
                             paths:
-                                - cd/deployment.yml
-                                - cd/svc.yml
+                                - deployment.yml
+                                - svc.yml
                             repoName: test-node-cd
                             branch: main
                         skipResourceVersioning: false
