@@ -1,7 +1,7 @@
 pipeline:
   name: test-node-cd-canary-pipeline
   identifier: test-node-cd-canary-pipeline
-  projectIdentifier: test-project-devrel
+  projectIdentifier: Test-Project-DevRel
   orgIdentifier: default
   tags: {}
   stages:
