@@ -1,0 +1,8 @@
+project:
+  orgIdentifier: default
+  identifier: harnessProject
+  name: harnessProject
+  color: "#0063F7"
+  modules:
+    - CD
+  description: "Harness project for test-node-cd"

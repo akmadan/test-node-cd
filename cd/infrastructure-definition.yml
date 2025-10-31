@@ -1,11 +1,11 @@
 infrastructureDefinition:
   name: test-node-cd-infrastructure
-  identifier: test-node-cd-infrastructure
+  identifier: test_node_cd_infrastructure
   description: ""
   tags: {}
   orgIdentifier: default
-  projectIdentifier: Test-Project-DevRel
-  environmentRef: test-node-cd-environment
+  projectIdentifier: harnessProject
+  environmentRef: test_node_cd_environment
   deploymentType: Kubernetes
   type: KubernetesDirect
   spec:

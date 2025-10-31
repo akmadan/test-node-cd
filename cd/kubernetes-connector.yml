@@ -3,10 +3,10 @@ connector:
   identifier: harnessk8sconnector
   description: ""
   orgIdentifier: default
-  projectIdentifier: Test-Project-DevRel
+  projectIdentifier: harnessProject
   type: K8sCluster
   spec:
     credential:
       type: InheritFromDelegate
     delegateSelectors:
-      - DELEGATE_NAME
+      - test-helm-delegate

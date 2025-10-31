@@ -1,10 +1,10 @@
 environment:
   name: test-node-cd-environment
-  identifier: test-node-cd-environment
+  identifier: test_node_cd_environment
   description: ""
   tags: {}
   type: Production
   orgIdentifier: default
-  projectIdentifier: Test-Project-DevRel
+  projectIdentifier: harnessProject
   variables: []
  

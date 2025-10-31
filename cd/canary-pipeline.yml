@@ -1,29 +1,29 @@
 pipeline:
-  name: test-node-cd-canary-pipeline
-  identifier: test-node-cd-canary-pipeline
-  projectIdentifier: Test-Project-DevRel
+  name: test_node_cd_canary_pipeline
+  identifier: test_node_cd_canary_pipeline
+  projectIdentifier: harnessProject
   orgIdentifier: default
   tags: {}
   stages:
     - stage:
-        name: deploy-test-node-cd
-        identifier: deploy-test-node-cd
+        name: deploy_test_node_cd
+        identifier: deploy_test_node_cd
         description: ""
         type: Deployment
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: test-node-cd-service
+            serviceRef: test_node_cd_service
           environment:
-            environmentRef: test-node-cd-environment
+            environmentRef: test_node_cd_environment
             deployToAll: false
             infrastructureDefinitions:
-              - identifier: test-node-cd-infrastructure
+              - identifier: test_node_cd_infrastructure
           execution:
             steps:
               - stepGroup:
                   name: Canary Deployment
-                  identifier: canaryDeploymentGroup
+                  identifier: canaryDepoyment
                   steps:
                     - step:
                         name: Canary Deployment
@@ -44,7 +44,7 @@ pipeline:
                         spec: {}
               - stepGroup:
                   name: Primary Deployment
-                  identifier: primaryDeploymentGroup
+                  identifier: primaryDepoyment
                   steps:
                     - step:
                         name: Rolling Deployment
@@ -56,7 +56,7 @@ pipeline:
             rollbackSteps:
               - step:
                   name: Canary Delete
-                  identifier: canaryDeleteRollback
+                  identifier: rollbackCanaryDelete
                   type: K8sCanaryDelete
                   timeout: 10m
                   spec: {}

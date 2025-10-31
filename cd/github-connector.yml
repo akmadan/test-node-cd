@@ -3,7 +3,7 @@ connector:
   identifier: harnessgitconnector
   description: ""
   orgIdentifier: default
-  projectIdentifier: Test-Project-DevRel
+  projectIdentifier: harnessProject
   type: Github
   spec:
     url: https://github.com/akmadan/test-node-cd
@@ -12,7 +12,7 @@ connector:
       spec:
         type: UsernameToken
         spec:
-          username: GITHUB_USERNAME
+          username: akmadan
           tokenRef: harness_gitpat
     apiAccess:
       type: Token
