@@ -1,0 +1,24 @@
+service:
+    name: test-node-cd-service
+    identifier: test-node-cd-service
+    serviceDefinition:
+        type: Kubernetes
+        spec:
+            manifests:
+                - manifest:
+                    identifier: test-node-cd-service
+                    type: K8sManifest
+                    spec:
+                      store:
+                        type: Github
+                        spec:
+                            connectorRef: harnessgitconnector
+                            gitFetchType: Branch
+                            paths:
+                                - test-node-cd/test-node-cd-deployment.yaml
+                                - test-node-cd/test-node-cd-svc.yaml
+                            repoName: test-node-cd
+                            branch: master
+                        skipResourceVersioning: false
+                        enableDeclarativeRollback: false
+    gitOpsEnabled: false

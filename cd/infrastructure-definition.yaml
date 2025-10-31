@@ -1,0 +1,15 @@
+infrastructureDefinition:
+  name: test-node-cd-infrastructure
+  identifier: test-node-cd-infrastructure
+  description: ""
+  tags: {}
+  orgIdentifier: default
+  projectIdentifier: default_project
+  environmentRef: test-node-cd-environment
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: test-node-cd-kubernetes-connector
+    namespace: default
+    releaseName: release-<+INFRA_KEY>
+  allowSimultaneousDeployments: false

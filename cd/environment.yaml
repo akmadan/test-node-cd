@@ -1,0 +1,10 @@
+environment:
+  name: test-node-cd-environment
+  identifier: test-node-cd-environment
+  description: ""
+  tags: {}
+  type: Production
+  orgIdentifier: default
+  projectIdentifier: default_project
+  variables: []
+ 
