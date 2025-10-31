@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test_node_cd_deployment
+  name: test-node-cd-deployment
 spec:
   replicas: 3
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: test_node_cd_deployment
+      app: test-node-cd-deployment
   template:
     metadata:
       labels:
-        app: test_node_cd_deployment
+        app: test-node-cd-deployment
     spec:
       containers:
       - image: akshitmadan/test-node-harness:latest
-        name: test_node_cd_deployment
+        name: test-node-cd-deployment
         ports:
         - containerPort: 3000
           name: http
