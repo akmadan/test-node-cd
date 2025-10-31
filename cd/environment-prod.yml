@@ -1,0 +1,10 @@
+environment:
+  name: test-node-cd-prod
+  identifier: test_node_cd_prod
+  description: "Production Environment"
+  tags: {}
+  type: Production
+  orgIdentifier: default
+  projectIdentifier: harnessProject
+  variables: []
+

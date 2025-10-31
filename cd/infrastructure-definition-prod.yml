@@ -1,0 +1,16 @@
+infrastructureDefinition:
+  name: test-node-cd-prod-infrastructure
+  identifier: test_node_cd_prod_infrastructure
+  description: "Production Infrastructure"
+  tags: {}
+  orgIdentifier: default
+  projectIdentifier: harnessProject
+  environmentRef: test_node_cd_prod
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: harnessk8sconnector
+    namespace: default
+    releaseName: release-<+INFRA_KEY>
+  allowSimultaneousDeployments: false
+

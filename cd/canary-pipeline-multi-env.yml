@@ -1,0 +1,232 @@
+pipeline:
+  name: test-node-cd-multi-env-canary-pipeline
+  identifier: test_node_cd_multi_env_canary_pipeline
+  projectIdentifier: harnessProject
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Deploy to Dev
+        identifier: deploy_to_dev
+        description: "Deploy to Development Environment"
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: test_node_cd_service
+          environment:
+            environmentRef: test_node_cd_dev
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: test_node_cd_dev_infrastructure
+          execution:
+            steps:
+              - stepGroup:
+                  name: Canary Deployment
+                  identifier: canaryDeploymentGroup
+                  steps:
+                    - step:
+                        name: Canary Deployment
+                        identifier: canaryDeployment
+                        type: K8sCanaryDeploy
+                        timeout: 10m
+                        spec:
+                          instanceSelection:
+                            type: Count
+                            spec:
+                              count: 1
+                          skipDryRun: false
+                    - step:
+                        name: Canary Delete
+                        identifier: canaryDelete
+                        type: K8sCanaryDelete
+                        timeout: 10m
+                        spec: {}
+              - stepGroup:
+                  name: Primary Deployment
+                  identifier: primaryDeploymentGroup
+                  steps:
+                    - step:
+                        name: Rolling Deployment
+                        identifier: rollingDeployment
+                        type: K8sRollingDeploy
+                        timeout: 10m
+                        spec:
+                          skipDryRun: false
+            rollbackSteps:
+              - step:
+                  name: Canary Delete
+                  identifier: canaryDeleteRollback
+                  type: K8sCanaryDelete
+                  timeout: 10m
+                  spec: {}
+              - step:
+                  name: Rolling Rollback
+                  identifier: rollingRollback
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec: {}
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+    - stage:
+        name: Deploy to QA
+        identifier: deploy_to_qa
+        description: "Deploy to QA Environment"
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: test_node_cd_service
+          environment:
+            environmentRef: test_node_cd_qa
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: test_node_cd_qa_infrastructure
+          execution:
+            steps:
+              - stepGroup:
+                  name: Canary Deployment
+                  identifier: canaryDeploymentGroupQA
+                  steps:
+                    - step:
+                        name: Canary Deployment
+                        identifier: canaryDeploymentQA
+                        type: K8sCanaryDeploy
+                        timeout: 10m
+                        spec:
+                          instanceSelection:
+                            type: Count
+                            spec:
+                              count: 1
+                          skipDryRun: false
+                    - step:
+                        name: Canary Delete
+                        identifier: canaryDeleteQA
+                        type: K8sCanaryDelete
+                        timeout: 10m
+                        spec: {}
+              - stepGroup:
+                  name: Primary Deployment
+                  identifier: primaryDeploymentGroupQA
+                  steps:
+                    - step:
+                        name: Rolling Deployment
+                        identifier: rollingDeploymentQA
+                        type: K8sRollingDeploy
+                        timeout: 10m
+                        spec:
+                          skipDryRun: false
+            rollbackSteps:
+              - step:
+                  name: Canary Delete
+                  identifier: canaryDeleteRollbackQA
+                  type: K8sCanaryDelete
+                  timeout: 10m
+                  spec: {}
+              - step:
+                  name: Rolling Rollback
+                  identifier: rollingRollbackQA
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec: {}
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+    - stage:
+        name: Deploy to Prod
+        identifier: deploy_to_prod
+        description: "Deploy to Production Environment with Approval Gate"
+        type: Deployment
+        spec:
+          deploymentType: Kubernetes
+          service:
+            serviceRef: test_node_cd_service
+          environment:
+            environmentRef: test_node_cd_prod
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: test_node_cd_prod_infrastructure
+          execution:
+            steps:
+              - step:
+                  type: HarnessApproval
+                  name: Production Approval
+                  identifier: productionApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |
+                      Please approve deployment to Production Environment.
+                      
+                      Service: test-node-cd-service
+                      Environment: Production
+                      Artifact Tag: <+artifact.tag>
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: true
+                      userGroups:
+                        - account._account_all_users
+                      users: []
+                    approverInputs: []
+              - stepGroup:
+                  name: Canary Deployment
+                  identifier: canaryDeploymentGroupProd
+                  steps:
+                    - step:
+                        name: Canary Deployment
+                        identifier: canaryDeploymentProd
+                        type: K8sCanaryDeploy
+                        timeout: 10m
+                        spec:
+                          instanceSelection:
+                            type: Count
+                            spec:
+                              count: 1
+                          skipDryRun: false
+                    - step:
+                        name: Canary Delete
+                        identifier: canaryDeleteProd
+                        type: K8sCanaryDelete
+                        timeout: 10m
+                        spec: {}
+              - stepGroup:
+                  name: Primary Deployment
+                  identifier: primaryDeploymentGroupProd
+                  steps:
+                    - step:
+                        name: Rolling Deployment
+                        identifier: rollingDeploymentProd
+                        type: K8sRollingDeploy
+                        timeout: 10m
+                        spec:
+                          skipDryRun: false
+            rollbackSteps:
+              - step:
+                  name: Canary Delete
+                  identifier: canaryDeleteRollbackProd
+                  type: K8sCanaryDelete
+                  timeout: 10m
+                  spec: {}
+              - step:
+                  name: Rolling Rollback
+                  identifier: rollingRollbackProd
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec: {}
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+

@@ -1,0 +1,10 @@
+environment:
+  name: test-node-cd-qa
+  identifier: test_node_cd_qa
+  description: "QA Environment"
+  tags: {}
+  type: PreProduction
+  orgIdentifier: default
+  projectIdentifier: harnessProject
+  variables: []
+

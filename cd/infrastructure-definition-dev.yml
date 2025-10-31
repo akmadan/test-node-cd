@@ -1,0 +1,16 @@
+infrastructureDefinition:
+  name: test-node-cd-dev-infrastructure
+  identifier: test_node_cd_dev_infrastructure
+  description: "Development Infrastructure"
+  tags: {}
+  orgIdentifier: default
+  projectIdentifier: harnessProject
+  environmentRef: test_node_cd_dev
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: harnessk8sconnector
+    namespace: default
+    releaseName: release-<+INFRA_KEY>
+  allowSimultaneousDeployments: false
+

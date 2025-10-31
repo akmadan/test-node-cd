@@ -1,0 +1,10 @@
+environment:
+  name: test-node-cd-dev
+  identifier: test_node_cd_dev
+  description: "Development Environment"
+  tags: {}
+  type: PreProduction
+  orgIdentifier: default
+  projectIdentifier: harnessProject
+  variables: []
+
